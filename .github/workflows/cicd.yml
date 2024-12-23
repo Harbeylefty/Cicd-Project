@@ -42,7 +42,7 @@ jobs:
       # Deploy the app to Kubernetes using kubectl
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f kubernetes/deployment.yaml
+          kubectl apply -f deployment.yml
         working-directory: ./kubernetes
 
       # Expose the application
