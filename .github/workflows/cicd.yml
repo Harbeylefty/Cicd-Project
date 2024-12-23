@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 
 on:
-  pull_request:
+  push:
     branches:
       - master # Trigger on push to the 'main' branch
 
@@ -26,7 +26,7 @@ jobs:
       # Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t harbeylefty17/devsecops:latest .
+           time docker build -t harbeylefty17/devsecops:latest .
 
       # Push Docker image to DockerHub
       - name: Push Docker image to DockerHub
