@@ -32,12 +32,19 @@ jobs:
       - name: Push Docker image to DockerHub
         run: |
           docker push harbeylefty17/devsecops:latest
-
-      # Set up kubectl to deploy to your Kubernetes cluster
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v4
+      
+      # Configure AWS credentials for EKS
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          version: latest
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+        
+      # Setup kubectl for EKS
+      - name: set up kubectl for EKS 
+        run: |
+          aws eks update-kubeconfig --region us-east-1 --name my-cluster
 
       # Deploy the app to Kubernetes using kubectl
       - name: Deploy to Kubernetes

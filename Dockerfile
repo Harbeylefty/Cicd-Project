@@ -27,11 +27,14 @@ COPY requirements_py3.txt ./
 RUN pip2 install -r requirements_py2.txt && \
     pip3 install -r requirements_py3.txt
 
+# Install Gunicorn
+RUN pip3 install gunicorn
+
 # Copy application codes into the container
 COPY app.py ./
 
 # Expose the port the application runs on
 EXPOSE 5000
 
-# Run python3 by default when the container starts
-CMD ["python3", "app.py"]
+# Run Gunicorn server with Python3 as the default command, binding it to all interfaces (0.0.0.0)
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
