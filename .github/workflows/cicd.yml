@@ -52,7 +52,6 @@ jobs:
           kubectl apply -f deployment.yml
         working-directory: ./kubernetes
 
-      # Expose the application
       - name: Check if app is running
         run: |
           kubectl rollout status deployment/flask-app-deployment
