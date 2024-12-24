@@ -3,7 +3,9 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master # Trigger on push to the 'main' branch
+      - master 
+    paths:
+      - './kubernetes'
 
 jobs:
   build:
@@ -16,7 +18,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Log in to DockerHub.
       - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
@@ -41,7 +42,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
         
-      # Setup kubectl for EKS
       - name: set up kubectl for EKS 
         run: |
           aws eks update-kubeconfig --region us-east-1 --name my-cluster
